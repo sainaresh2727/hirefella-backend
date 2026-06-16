@@ -21,6 +21,11 @@ app.use('/api/user',registerRoutes)
 const recuirterRoutes=require('./routes/recruiterRegisterRoute.js')
 app.use('/api/recruiter',recuirterRoutes)
 
+//Post New Job Routes
+const newJobRoutes=require('./routes/postNewJobRoute.js')
+app.use('/api/recruiter',newJobRoutes)
+
+
 // Start Server
 app.listen(process.env.PORT,()=>{
     console.log("Server Running Successfully");

@@ -24,3 +24,5 @@ async function postNewJobFun(req,res) {
         })
     }
 }
+
+module.exports={postNewJobFun}
