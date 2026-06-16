@@ -13,11 +13,15 @@ app.use(cors())
 const db=require('./config/db.js')
 db()
 
-// Register User Routes
-const registerRoutes=require('./routesregisterRoute.js')
-app.use('/api/register',registerRoutes)
+// User Routes
+const registerRoutes=require('./routes/userRegisterRoute.js')
+app.use('/api/user',registerRoutes)
 
-//Start Server
+// Recuirter Routes
+const recuirterRoutes=require('./routes/recruiterRegisterRoute.js')
+app.use('/api/recruiter',recuirterRoutes)
+
+// Start Server
 app.listen(process.env.PORT,()=>{
     console.log("Server Running Successfully");
 })

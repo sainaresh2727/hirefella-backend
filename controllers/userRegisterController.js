@@ -1,4 +1,4 @@
-const registerModel=require('../model/registerModel.js')
+const registerModel=require('../model/userRegisterModel.js')
 
 const bcrypt=require('bcrypt')
 
@@ -43,7 +43,7 @@ async function addRegisterDetails(req,res) {
         }
 
         const passwordRegex=/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$\b/
-            if(!passwordRegex){
+            if(!passwordRegex.test(registerPassword)){
                 return res.status(401).json({
                     success:false,
                     message:"Password Must Contain Atleast One UpperCase,  LowerCase, Number and Special Character"

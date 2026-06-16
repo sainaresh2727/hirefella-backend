@@ -29,7 +29,10 @@ const schema=new mongoose.Schema({
             "Experienced"
         ]
     },
-    role:"jobseeker",
+    role:{
+        type:String,
+        default:"Jobseeker"
+    },
 
     //Profile Fields That We Enter After Login Not Required During Register (BIO)
     profileImage:String,

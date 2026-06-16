@@ -1,12 +1,13 @@
-const registerModel=require('../model/registerModel.js')
+const registerModel=require('../model/userRegisterModel.js')
 const bcrypt=require("bcrypt")
+const generateToken=require('../utils/jwt.js')
 
 async function loginDatas(req,res) {
-    let {loginEmail,LoginPassword}=req.body
+    let {loginEmail,loginPassword}=req.body
     try{
 
         // Basic Validation
-        if(!loginEmail || !LoginPassword){
+        if(!loginEmail || !loginPassword){
             return res.status(401).json({
                 success:false,
                 message:"Please Provide Valid Inputs"
@@ -22,14 +23,26 @@ async function loginDatas(req,res) {
             })
         }
 
-        const comparePassword=await bcrypt.compare(LoginPassword,existingUser.registerPassword)
+        const comparePassword=await bcrypt.compare(loginPassword,existingUser.registerPassword)
         if(!comparePassword){
             return res.status(401).json({
                 success:false,
                 message:"Please Enter Valid Password"
             })
         }
-        
+
+        // Jwt Generation
+        const Token=generateToken({
+            id:existingUser._id,
+            role:existingUser.role,
+            email:existingUser.registerEmail
+        })
+
+        res.status(201).json({
+            success:true,
+            message:"Logined Successfully",
+            token:Token
+        })
     }
     catch(err){
         res.status(500).json({
@@ -38,3 +51,5 @@ async function loginDatas(req,res) {
         })
     }
 }
+
+module.exports=loginDatas
